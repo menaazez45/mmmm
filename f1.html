@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate QR Code</title>
+</head>
+<body>
+    <input type="text" id="qrData" placeholder="Enter data...">
+    <button onclick="generateQR()">Generate QR Code</button>
+    <div id="qrImage"></div>
+
+    <script>
+        function generateQR() {
+            var qrData = document.getElementById('qrData').value;
+            fetch('https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' + qrData)
+                .then(response => response.blob())
+                .then(blob => {
+                    var qrImage = URL.createObjectURL(blob);
+                    document.getElementById('qrImage').innerHTML = '<img src="' + qrImage + '"/>';
+                });
+        }
+    </script>
+</body>
+</html>
+
